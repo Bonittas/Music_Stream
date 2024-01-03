@@ -3,7 +3,7 @@ package recommendation
 import (
 	"math/rand"
 
-	"github.com/bonittas/MUSIC_STREAM/music-backend/models"
+	"github.com/Bonittas/Music_Stream/music-backend/models"
 )
 
 // RecommendationService provides methods for retrieving song recommendations

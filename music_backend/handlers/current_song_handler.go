@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/bonittas/MUSIC_STREAM/music-backend/database"
-	"github.com/bonittas/MUSIC_STREAM/music-backend/models"
+	"github.com/Bonittas/Music_Stream/music-backend/database"
+	"github.com/Bonittas/Music_Stream/music-backend/models"
 )
 
 // GetCurrentSong returns the currently playing song

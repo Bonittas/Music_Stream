@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-// helloo
-	"github.com/bonittas/MUSIC_STREAM/music-backend/database"
-	"github.com/bonittas/MUSIC_STREAM/music-backend/models"
+// hellooooo
+	"github.com/Bonittas/Music_Stream/music-backend/database"
+	"github.com/Bonittas/Music_Stream/music-backend/models"
 )
 
 // GetPlaylist returns the user's playlist

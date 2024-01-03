@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/bonittas/MUSIC_STREAM/music-backend/audio"
+	"github.com/Bonittas/Music_Stream/music-backend/audio"
 )
 
 type Playlist struct {
