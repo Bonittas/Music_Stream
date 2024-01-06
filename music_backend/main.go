@@ -3,20 +3,23 @@ package main
 import (
 	"log"
 	"net/http"
-	"github.com/gorilla/mux"
-	"github.com/bonittas/MUSIC_STREAM/music-backend/handlers"
-	"github.com/bonittas/MUSIC_STREAM/music-backend/database"
+
+	"github.com/Bonittas/Music_Stream/music-backend/database"
+	"github.com/Bonittas/Music_Stream/music-backend/handlers"
 )
 
 func main() {
-	db := database.InitMySQL() // Initialize MySQL database connection
+	// Initialize the database
+	db := database.InitMySQL()
 
-	// Create a new instance of the Gorilla mux router
-	router := mux.NewRouter()
+	// Set up routes and handlers
+	http.HandleFunc("/playlist", handlers.GetPlaylist(db))
+	http.HandleFunc("/current-song", handlers.GetCurrentSong(db))
 
-	// Register API routes
-	router.HandleFunc("/api/currentSong", handlers.GetCurrentSong(db)).Methods("GET")
-	router.HandleFunc("/api/playlist", handlers.GetPlaylist(db)).Methods("GET")
-
-	log.Fatal(http.ListenAndServe(":8000", router))
+	// Start the server
+	log.Println("Server started on port 8080")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

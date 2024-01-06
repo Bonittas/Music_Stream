@@ -3,10 +3,15 @@ package database
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
 )
 
-func InitMySQL() *sql.DB {
-	db, err := sql.Open("mysql", "username:password@tcp(localhost:3306)/your_database_name")
+type DB struct {
+	*sql.DB
+}
+
+func InitMySQL() *DB {
+	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/music")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -16,5 +21,5 @@ func InitMySQL() *sql.DB {
 		log.Fatal(err)
 	}
 
-	return db
+	return &DB{db}
 }
