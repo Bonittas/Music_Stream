@@ -18,7 +18,7 @@ var (
 func main() {
 	r := mux.NewRouter()
 
-	// CORS middleware with more advanced configuration
+
 	corsHandler := mux.CORSMethodMiddleware(r)
 	r.Use(corsHandler)
 
@@ -30,7 +30,7 @@ func main() {
 }
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
-	// CORS headers for preflight request
+
 	if r.Method == "OPTIONS" {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "POST")
@@ -54,7 +54,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Basic username and password validation
+	//  username and password validation
 	if len(req.User) < 4 || len(req.User) > 24 || len(req.Pwd) < 8 || len(req.Pwd) > 24 {
 		http.Error(w, "Invalid entry", http.StatusBadRequest)
 		return
@@ -69,7 +69,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Store user data (in-memory for simplicity)
+	// Store user data 
 	userData[req.User] = req.Pwd
 
 	// Respond with success
