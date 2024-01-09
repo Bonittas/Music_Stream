@@ -1,60 +1,51 @@
-package handlers
+// package handlers
 
-import (
-	"encoding/json"
-	"net/http"
+// import (
+//     "encoding/json"
+// 	"github.com/Bonittas/Music_Stream/music-backend/database"
+// 	"github.com/Bonittas/Music_Stream/music-backend/models"
+//     "net/http"
+// )
 
-	"github.com/Bonittas/Music_Stream/music-backend/database"
-	"github.com/Bonittas/Music_Stream/music-backend/models"
-)
+// // PlaylistHandlers contains HTTP handlers for playlist-related operations
+// func PlaylistHandlers(db *database.DB) http.HandlerFunc {
+//     return func(w http.ResponseWriter, r *http.Request) {
+//         switch r.Method {
+//         case http.MethodGet:
+//             getPlaylist(db, w, r)
+//         case http.MethodPost:
+//             createPlaylist(db, w, r)
+//         // Add other HTTP methods (PUT, DELETE, etc.) for playlists
+//         default:
+//             http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+//         }
+//     }
+// }
 
-// GetUserPlaylist retrieves the user's playlist from the database or any other data source
-// Implement the logic to fetch the user's playlist
-// Return the user's playlist as a slice of models.Playlist
-func GetUserPlaylist(db *database.DB) []models.Playlist {
-	// Implement the logic here
-	return []models.Playlist{
-		{
-			ID:   1,
-			Name: "My Playlist",
-			Songs: []models.Song{
-				{
-					ID:    1,
-					Title: "Song 1",
-					Audio: "http://example.com/audio/song1.mp3",
-				},
-				{
-					ID:    2,
-					Title: "Song 2",
-					Audio: "http://example.com/audio/song2.mp3",
-				},
-			},
-		},
-	}
-}
+// func getPlaylist(db *database.DB, w http.ResponseWriter, r *http.Request) {
+//     // Retrieve playlist by ID from the database
+//     playlistID := r.URL.Query().Get("id")
+//     playlist, err := db.GetPlaylistByID(playlistID)
+//     if err != nil {
+//         http.Error(w, "Playlist not found", http.StatusNotFound)
+//         return
+//     }
 
-// GetPlaylist returns the user's playlist
-func GetPlaylist(db *database.DB) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		// Get the user's playlist from the database
-		playlist := GetUserPlaylist(db)
+//     jsonResponse(w, playlist, http.StatusOK)
+// }
 
-		// Convert the playlist object to JSON
-		response, err := json.Marshal(playlist)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+// func createPlaylist(db *database.DB, w http.ResponseWriter, r *http.Request) {
+//     var playlist models.Playlist
+//     if err := json.NewDecoder(r.Body).Decode(&playlist); err != nil {
+//         http.Error(w, "Invalid request payload", http.StatusBadRequest)
+//         return
+//     }
 
-		// Set the response headers
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
+//     // Save playlist to the database
+//     if err := db.CreatePlaylist(&playlist); err != nil {
+//         http.Error(w, "Error creating playlist", http.StatusInternalServerError)
+//         return
+//     }
 
-		// Write the response
-		_, err = w.Write(response)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	}
-}
+//     jsonResponse(w, playlist, http.StatusCreated)
+// }

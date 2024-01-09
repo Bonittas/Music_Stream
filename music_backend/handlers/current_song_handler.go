@@ -1,47 +1,51 @@
-package handlers
+// package handlers
 
-import (
-	"encoding/json"
-	"net/http"
+// import (
+//     "encoding/json"
+// 	"github.com/Bonittas/Music_Stream/music-backend/database"
+// 	"github.com/Bonittas/Music_Stream/music-backend/models"
+//     "net/http"
+// )
 
-	"github.com/Bonittas/Music_Stream/music-backend/database"
-	"github.com/Bonittas/Music_Stream/music-backend/models"
-)
+// // SongHandlers contains HTTP handlers for song-related operations
+// func SongHandlers(db *database.DB) http.HandlerFunc {
+//     return func(w http.ResponseWriter, r *http.Request) {
+//         switch r.Method {
+//         case http.MethodGet:
+//             getSong(db, w, r)
+//         case http.MethodPost:
+//             createSong(db, w, r)
+//         // Add other HTTP methods (PUT, DELETE, etc.) for songs
+//         default:
+//             http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+//         }
+//     }
+// }
 
-// GetCurrentlyPlayingSong retrieves the currently playing song from the database or any other data source
-// Implement the logic to fetch the currently playing song
-// Return the currently playing song as an instance of models.Song
-func GetCurrentlyPlayingSong(db *database.DB) models.Song {
-	// Implement the logic here
-	return models.Song{
-		ID:    1,
-		Title: "Currently Playing Song",
-		Audio: "http://example.com/audio/song.mp3",
-	}
-}
+// func getSong(db *database.DB, w http.ResponseWriter, r *http.Request) {
+//     // Retrieve song by ID from the database
+//     songID := r.URL.Query().Get("id")
+//     song, err := db.GetSongByID(songID)
+//     if err != nil {
+//         http.Error(w, "Song not found", http.StatusNotFound)
+//         return
+//     }
 
-// GetCurrentSong returns the currently playing song
-func GetCurrentSong(db *database.DB) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		// Get the currently playing song from the database
-		currentSong := GetCurrentlyPlayingSong(db)
+//     jsonResponse(w, song, http.StatusOK)
+// }
 
-		// Convert the currentSong object to JSON
-		response, err := json.Marshal(currentSong)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+// func createSong(db *database.DB, w http.ResponseWriter, r *http.Request) {
+//     var song models.Song
+//     if err := json.NewDecoder(r.Body).Decode(&song); err != nil {
+//         http.Error(w, "Invalid request payload", http.StatusBadRequest)
+//         return
+//     }
 
-		// Set the response headers
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
+//     // Save song to the database
+//     if err := db.CreateSong(&song); err != nil {
+//         http.Error(w, "Error creating song", http.StatusInternalServerError)
+//         return
+//     }
 
-		// Write the response
-		_, err = w.Write(response)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	}
-}
+//     jsonResponse(w, song, http.StatusCreated)
+// }
